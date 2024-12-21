@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>MineStats</title>
+  <link href="img/logo.png" rel="icon" type="image/x-icon">
+  <link href="status.css" rel="stylesheet" type="text/css" />
+  <meta property="og:title" content="MineStats">
+  <meta propety="og:description" content="MineStats is a Discord bot that provides information about Minecraft servers.">
+  <meta property="og:image" content="https://minestats.mcbehub.de/img/logo.png">
+  <meta property="og:url" content="https://minestats.mcbehub.de">
+  <meta propery="og:type" content="website">
+  <meta property="og:site_name" content="MineStats">
+  <meta name="theme-color" content="#ff45f9">
+</head>
+
+<body>
+  <nav id="desknav">
+    <div>
+      <a href="/"><img src="img/logo.png" class="logo"></a>
+      <a href="/">Home</a>
+      <a>Features</a>
+      <button onclick="window.location.href='https://discord.gg/bYGPUPBKzU'"><img src="icons/discord.svg">Join Support Server</button>
+      <button><img src="icons/discord.svg">Add Bot</button>
+    </div>
+  </nav>
+  <nav id="mobnav">
+    <a href="/"><img class="logo" src="img/logo.png"></a>
+    <div>
+      <button class="discord" onclick="window.location.href='https://discord.com/oauth2/authorize?client_id=1318731322046550026'"><img src="icons/discord.svg">Add Bot</button>
+      <button class="menu" onclick="toggleNav()"><img src="icons/menu-burger.svg"></button>
+    </div>
+  </nav>
+  <div id="mobinav">
+    <div>
+      <a href="/">Home</a>
+      <a>Features</a>
+    </div>
+    <button class="join" onclick="window.location.href='https://discord.gg/bYGPUPBKzU'"><img src="icons/discord.svg">Join Support Server</button>
+  </div>
+  <section class="hero">
+    <h1><span class="ltext">Sta</span>tus</h1>
+    <div id="status">
+      Fetching data, hang tight!
+    </div>
+  </section>
+  <script src="script.js"></script>
+  <script>
+    // Lese die URL-Parameter
+    const params = new URLSearchParams(window.location.search);
+    const server = params.get('server');
+    const type = params.get('type');
+
+    if (server) {
+      const statusDiv = document.getElementById('status');
+      const apiUrl = `https://api.mcstatus.io/v2/status/${encodeURIComponent(type)}/${encodeURIComponent(server)}`; // API-URL
+
+      // API-Abfrage
+      fetch(apiUrl)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error(`HTTP-Fehler: ${response.status}`);
+          }
+          return response.json();
+        })
+        .then(data => {
+          // Zeige die Daten an
+          const onlineStatus = data.online ? "Online" : "Offline";
+          const players = data.players?.online || 0;
+          statusDiv.innerHTML = `
+            <div class="card">Server: ${server}</div>
+            <div class="card">Status: ${onlineStatus}</div>
+            <div class="card">Players Online: ${players}</div>
+          `;
+        })
+        .catch(error => {
+          statusDiv.innerHTML = `<p>Fehler: ${error.message}</p>`;
+        });
+    } else {
+      document.getElementById('status').innerHTML = `<p>Kein Server angegeben!</p>`;
+    }
+  </script>
+</body>
+
+</html>
