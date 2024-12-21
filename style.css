@@ -476,4 +476,8 @@ footer div {
     border: none;
     border-radius: 0.5rem 0.5rem 0 0;
   }
+
+  footer {
+    transform: translateY(-2rem);
+  }
 }
