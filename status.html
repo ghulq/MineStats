@@ -8,12 +8,21 @@
   <link href="img/logo.png" rel="icon" type="image/x-icon">
   <link href="status.css" rel="stylesheet" type="text/css" />
   <meta property="og:title" content="MineStats">
-  <meta propety="og:description" content="MineStats is a Discord bot that provides information about Minecraft servers.">
+  <meta propety="og:description"
+    content="MineStats is a Discord bot that provides information about Minecraft servers.">
   <meta property="og:image" content="https://minestats.mcbehub.de/img/logo.png">
   <meta property="og:url" content="https://minestats.mcbehub.de">
   <meta propery="og:type" content="website">
   <meta property="og:site_name" content="MineStats">
   <meta name="theme-color" content="#ff45f9">
+  <style>
+    .card {
+      padding: 0.5rem 1rem;
+      backrgound: #00000099;
+      border: none;
+      border-radius: 0.5rem;
+    }
+  </style>
 </head>
 
 <body>
@@ -67,12 +76,26 @@
         })
         .then(data => {
           // Zeige die Daten an
+          
           const onlineStatus = data.online ? "Online" : "Offline";
-          const players = data.players?.online || 0;
+          const circle = data.online ? "on" : "off";
+          const port = data.port;
+          const ip = data.ip_address;
+          const motd = data.motd?.clean || "No MOTD";
+          const onplayers = data.players?.online || 0;
+          const maxplayers = data.players?.max || 0;
+          const version = data.version?.name || "Unknown";
+          const protocol = data.version?.protocol || "Undefined";
           statusDiv.innerHTML = `
-            <div class="card">Server: ${server}</div>
-            <div class="card">Status: ${onlineStatus}</div>
-            <div class="card">Players Online: ${players}</div>
+            <div class="card"><img src="icons/server.svg"><div><b>Server</b><p>${server}</p></div></div>
+            <div class="card"><img src="icons/${circle}circle.svg"><div><b>Status</b><p>${onlineStatus}</p></div></div>
+            <div class="card"><img src="icons/wifi.svg"><div><b>IP</b><p>${ip}</p></div></div>
+            <div class="card"><img src="icons/ethernet.svg"><div><b>Port</b><p>${port}</p></div></div>
+            <div class="card"><img src="icons/text.svg"><div><b>MOTD</b><p>${motd}</p></div></div>
+            <div class="card"><img src="icons/user-online.svg"><div><b>Players Online</b><p>${onplayers}</p></div></div>
+            <div class="card"><img src="icons/user-gear.svg"><div><b>Max Players</b><p>${maxplayers}</p></div></div>
+            <div class="card"><img src="icons/version.svg"><div><b>Version</b><p>${version}</p></div></div>
+            <div class="card"><img src="icons/protocol.svg"><div><b>Protocol</b><p>${protocol}</p></div></div>
           `;
         })
         .catch(error => {
