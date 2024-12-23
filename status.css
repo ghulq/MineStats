@@ -103,6 +103,52 @@ body {
   font-size: 3rem;
 }
 
+#status {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+  grid-template-rows: auto;
+  gap: 1rem;
+}
+
+.card {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.5rem 1rem;
+  background: #00000050;
+  border: none;
+  border-radius: 0.5rem;
+  transition: 0.2s;
+}
+
+.card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 0 0.5rem #00000099;
+}
+
+.card img {
+  height: 3rem;
+  width: 3rem;
+  padding: 0.5rem;
+  border: none;
+  border-radius: 0.35rem;
+}
+
+.card div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.card p {
+  margin: 0;
+}
+.card b {
+  margin: 0.25rem 0;
+}
+
 @media (max-width: 800px) {
   #desknav {
     display: none;
@@ -227,5 +273,20 @@ body {
   #mobnav .discord img {
     height: 1.5rem;
     width: 1.5rem;
+  }
+
+  #status {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .card {
+    width: 20rem;
+    padding: 0.5rem 0;
+    background: #00000099;
+    border: none;
+    border-radius: 0.5rem;
   }
 }
