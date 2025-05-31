@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width">
   <title>MineStats</title>
   <link href="img/logo.png" rel="icon" type="image/x-icon">
+   <link href="nav.css" rel="stylesheet" type="text/css" />
   <link href="style.css" rel="stylesheet" type="text/css" />
   <meta property="og:title" content="MineStats">
   <meta property="og:description" content="MineStats is a Discord bot that provides information about Minecraft servers.">
@@ -15,15 +16,19 @@
   <meta name="theme-color" content="#ff45f9">
 </head>
 <body>
+  
   <nav id="desknav">
     <div>
       <a><img src="img/logo.png" class="logo"></a>
       <a>Home</a>
       <a>Features</a>
+    </div>
+    <div>
       <button onclick="window.location.href='https://discord.gg/bYGPUPBKzU'"><img src="icons/discord.svg">Join Support Server</button>
       <button onclick="window.location.href='https://discord.com/oauth2/authorize?client_id=1318731322046550026'"><img src="icons/discord.svg">Add Bot</button>
     </div>
   </nav>
+  
   <nav id="mobnav">
     <a><img class="logo" src="img/logo.png"></a>
     <div>
@@ -38,6 +43,7 @@
     </div>
     <button class="join" onclick="window.location.href='https://discord.gg/bYGPUPBKzU'"><img src="icons/discord.svg">Join Support Server</button>
   </div>
+  
   <section class="hero">
     <h1><span class="ltext">Mine</span>Stats</h1>
     <p>Your Discord bot for Minecraft!</p>
@@ -49,53 +55,39 @@
         <input type="text" id="server" name="server" placeholder="Server address" required>
         <button type="submit">Search</button>
     </form>
-    <div>
-      <button class="firstbtn" onclick="window.location.href='https://discord.com/oauth2/authorize?client_id=1318731322046550026'"><img src="icons/discord.svg">Add Bot</button>
-      <button class="secbtn"><img src="icons/star.svg">Features</button>
-    </div>
-    <svg class="bg" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev/svgjs" viewBox="0 0 2400 800"><defs><linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="sssurf-grad"><stop stop-color="hsl(208, 77%, 50%)" stop-opacity="1" offset="0%"></stop><stop stop-color="hsl(208, 74%, 93%)" stop-opacity="1" offset="100%"></stop></linearGradient></defs><g fill="#444444ff" transform="matrix(1,0,0,1,-10.4755859375,316.88092041015625)"><path d="M-10,10C242.08333333333331,28.125,697.9166666666666,126.58333333333334,1200,97C1702.0833333333335,67.41666666666666,2097.9166666666665,-195.125,2400,-132C2702.0833333333335,-68.875,3254.1666666666665,185,2650,400C2045.8333333333335,615,156.25,795.8333333333334,-500,900" transform="matrix(1,0,0,1,0,52)" opacity="0.05"></path><path d="M-10,10C242.08333333333331,28.125,697.9166666666666,126.58333333333334,1200,97C1702.0833333333335,67.41666666666666,2097.9166666666665,-195.125,2400,-132C2702.0833333333335,-68.875,3254.1666666666665,185,2650,400C2045.8333333333335,615,156.25,795.8333333333334,-500,900" transform="matrix(1,0,0,1,0,104)" opacity="0.53"></path><path d="M-10,10C242.08333333333331,28.125,697.9166666666666,126.58333333333334,1200,97C1702.0833333333335,67.41666666666666,2097.9166666666665,-195.125,2400,-132C2702.0833333333335,-68.875,3254.1666666666665,185,2650,400C2045.8333333333335,615,156.25,795.8333333333334,-500,900" transform="matrix(1,0,0,1,0,156)" opacity="1.00"></path></g></svg>
   </section>
-  <section class="features">
-    <h1><span class="ltext">Feat</span>ures</h1>
-    <div class="gallery">
-      <div class="galcard">
-        <img class="banner" src="img/f1.png">
-        <div>
-          <h3>Java Server Lookup</h3>
-          <p>Lookup any Minecraft Java Server with /check java</p>
-        </div>
-      </div>
-      <div class="galcard">
-        <img class="banner" src="img/f2.png">
-        <div>
-          <h3>Bedrock Server Lookup</h3>
-          <p>Lookup any Minecraft Bedrock Server with /check bedrock</p>
-        </div>
-      </div>
-      <div class="galcard">
-        <img class="banner" src="img/f3.png">
-        <div>
-          <h3>Java Player Lookup</h3>
-          <p>Lookup any Minecraft Java Player with /player java</p>
-        </div>
-      </div>
-      <div class="galcard">
-        <img class="banner" src="img/f4.png">
-        <div>
-          <h3>Downtime detector</h3>
-          <p>Get a notification when your server goes down</p>
-        </div>
-      </div>
+
+  <section id="features">
+    <h2><span class="ltext">Feat</span>ures</h2>
+    <div class="feature">
+      <img src="img/f1.png">
+      <p>Lookup any java server with <span class="cmd">/check java</span> everywhere where external commands are allowed or where MineStats is added in. Available info: Host, IP, Port, MOTD, Online/Max Players, Version, Protocol.</p>
+    </div>
+    <div class="feature">
+      <p>Lookup any bedrock server with <span class="cmd">/check bedrock</span> everywhere where external commands are allowed or where MineStats is added in. Available info: Host, IP, Port, MOTD, Online/Max Players, Version, Protocol.</p>
+      <img src="img/f2.png">
+    </div>
+    <div class="feature">
+      <img src="img/f4.png">
+      <p>Setup your own Downtime Detector with <span class="cmd">/detector setup</span> which monitors your Minecraft Server every minute and sends out a message in a channel you specified to let you and/or your community know when the server is down.</p>
     </div>
   </section>
+
   <footer>
-    <img src="img/logo.png">
-    <div>
-      <a href="tos.html">Terms of Service</a>
-      <a href="privacy.html">Privacy Policy</a>
-      <a>Contact</a>
-      <a href="https://discord.gg/bYGPUPBKzU">Support</a>
+    <div class="f1">
+      <img src="img/logo.png">
+      <p>&copy; 2025 Mcbehub.de. All Rights Reserved.</p>
+    </div>
+    <div class="f2">
+      <div>
+        <b>Links</b>
+        <a href="https://mcbehub.de">Mcbehub</a>
+      </div>
+      <div>
+        <b>Legal</b>
+        <a href="tos.html">Terms of Service</a>
+        <a href="privacy.html">Privacy Policy</a>
+      </div>
   </footer>
-  <script src="script.js"></script>
 </body>
 </html>

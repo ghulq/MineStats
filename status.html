@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width">
   <title>MineStats</title>
   <link href="img/logo.png" rel="icon" type="image/x-icon">
+  <link href="nav.css" rel="stylesheet" type="text/css">
   <link href="status.css" rel="stylesheet" type="text/css" />
   <meta property="og:title" content="MineStats">
   <meta propety="og:description"
@@ -15,26 +16,22 @@
   <meta propery="og:type" content="website">
   <meta property="og:site_name" content="MineStats">
   <meta name="theme-color" content="#ff45f9">
-  <style>
-    .card {
-      padding: 0.5rem 1rem;
-      backrgound: #00000099;
-      border: none;
-      border-radius: 0.5rem;
-    }
-  </style>
 </head>
 
 <body>
+  
   <nav id="desknav">
     <div>
       <a href="/"><img src="img/logo.png" class="logo"></a>
       <a href="/">Home</a>
       <a>Features</a>
+    </div>
+    <div>
       <button onclick="window.location.href='https://discord.gg/bYGPUPBKzU'"><img src="icons/discord.svg">Join Support Server</button>
       <button><img src="icons/discord.svg">Add Bot</button>
     </div>
   </nav>
+  
   <nav id="mobnav">
     <a href="/"><img class="logo" src="img/logo.png"></a>
     <div>
@@ -49,21 +46,67 @@
     </div>
     <button class="join" onclick="window.location.href='https://discord.gg/bYGPUPBKzU'"><img src="icons/discord.svg">Join Support Server</button>
   </div>
+  
   <section class="hero">
     <h1><span class="ltext">Sta</span>tus</h1>
     <div id="status">
-      Fetching data, hang tight!
+      <div id="online">
+        <b>Online</b>
+        <p id="online-msg">Loading...</p>
+      </div>
+      <div id="ip">
+        <b>IP</b>
+        <p id="ip-msg">Loading...</p>
+      </div>
+      <div id="motd">
+        <b>MOTD</b>
+        <p id="motd-msg">Loading...</p>
+      </div>
+      <div id="players">
+        <b>Players</b>
+        <p id="players-msg">Loading...</p>
+      </div>
+      <div id="version">
+        <b>Version</b>
+        <p id="version-msg">Loading...</p>
+      </div>
+      <div id="protocol">
+        <b>Protocol</b>
+        <p id="protocol-msg">Loading...</p>
+      </div>
     </div>
   </section>
-  <script src="script.js"></script>
+
+  <footer>
+    <div class="f1">
+      <img src="img/logo.png">
+      <p>&copy; 2025 Mcbehub.de. All Rights Reserved.</p>
+    </div>
+    <div class="f2">
+      <div>
+        <b>Links</b>
+        <a href="https://mcbehub.de">Mcbehub</a>
+      </div>
+      <div>
+        <b>Legal</b>
+        <a href="tos.html">Terms of Service</a>
+        <a href="privacy.html">Privacy Policy</a>
+      </div>
+  </footer>
   <script>
     // Lese die URL-Parameter
     const params = new URLSearchParams(window.location.search);
     const server = params.get('server');
     const type = params.get('type');
+    const statusDiv = document.getElementById('status');
 
     if (server) {
-      const statusDiv = document.getElementById('status');
+      const onlinemsg = document.getElementById('online-msg');
+      const ipmsg = document.getElementById('ip-msg');
+      const motdmsg = document.getElementById('motd-msg');
+      const playersmsg = document.getElementById('players-msg');
+      const versionmsg = document.getElementById('version-msg');
+      const protocolmsg = document.getElementById('protocol-msg');
       const apiUrl = `https://api.mcstatus.io/v2/status/${encodeURIComponent(type)}/${encodeURIComponent(server)}`; // API-URL
 
       // API-Abfrage
@@ -78,31 +121,30 @@
           // Zeige die Daten an
           
           const onlineStatus = data.online ? "Online" : "Offline";
-          const circle = data.online ? "on" : "off";
           const port = data.port;
           const ip = data.ip_address;
           const motd = data.motd?.clean || "No MOTD";
           const onplayers = data.players?.online || 0;
           const maxplayers = data.players?.max || 0;
           const version = data.version?.name || "Unknown";
-          const protocol = data.version?.protocol || "Undefined";
-          statusDiv.innerHTML = `
-            <div class="card"><img src="icons/server.svg"><div><b>Server</b><p>${server}</p></div></div>
-            <div class="card"><img src="icons/${circle}circle.svg"><div><b>Status</b><p>${onlineStatus}</p></div></div>
-            <div class="card"><img src="icons/wifi.svg"><div><b>IP</b><p>${ip}</p></div></div>
-            <div class="card"><img src="icons/ethernet.svg"><div><b>Port</b><p>${port}</p></div></div>
-            <div class="card"><img src="icons/text.svg"><div><b>MOTD</b><p>${motd}</p></div></div>
-            <div class="card"><img src="icons/user-online.svg"><div><b>Players Online</b><p>${onplayers}</p></div></div>
-            <div class="card"><img src="icons/user-gear.svg"><div><b>Max Players</b><p>${maxplayers}</p></div></div>
-            <div class="card"><img src="icons/version.svg"><div><b>Version</b><p>${version}</p></div></div>
-            <div class="card"><img src="icons/protocol.svg"><div><b>Protocol</b><p>${protocol}</p></div></div>
-          `;
+          const protocol = data.version?.protocol || "Unknown";
+          onlinemsg.innerHTML = `${onlineStatus}`;
+          ipmsg.innerHTML = `${ip}:${port}`;
+          motdmsg.innerHTML = `${motd}`;
+          playersmsg.innerHTML = `${onplayers}/${maxplayers}`;
+          versionmsg.innerHTML = `${version}`;
+          protocolmsg.innerHTML = `${protocol}`;
         })
         .catch(error => {
           statusDiv.innerHTML = `<p>Fehler: ${error.message}</p>`;
         });
     } else {
       document.getElementById('status').innerHTML = `<p>Kein Server angegeben!</p>`;
+    }
+
+    function toggleNav() {
+      const nav = document.getElementById("mobinav");
+      nav.classList.toggle("active");
     }
   </script>
 </body>
